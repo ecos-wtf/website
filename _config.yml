@@ -1,7 +1,7 @@
 site: ecos.wtf - eCOS Offensive Security Research
 url: https://ecos.wtf
 author:
-  name: Quentin Kaiser
+  name: qkaiser
   email: quentin@ecos.wtf
   url: https://twitter.com/qkaiser
   avatar: https://pbs.twimg.com/profile_images/620237021110386688/3kF35oZ5_400x400.png
@@ -69,6 +69,7 @@ defaults:
       path: ""
     values:
       layout: "default"
+      image: /assets/ecos_wtf_logo_head.png
   -
     scope:
       path: ""
