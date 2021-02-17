@@ -69,7 +69,7 @@ defaults:
       path: ""
     values:
       layout: "default"
-      image: /assets/ecos_wtf_logo_head.png
+      image: /assets/ecos_wtf_logo_square.png
   -
     scope:
       path: ""
