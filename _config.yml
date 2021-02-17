@@ -1,27 +1,23 @@
-site: Gray - Single column blog and portfolio Jekyll theme
-url: # url
-author: # your name
+site: ecos.wtf - eCOS Offensive Security Research
+url: https://ecos.wtf
 author:
-  name: # your name
-  email: # your email 
-  url: # url
-  avatar: 
-title: Gray - Single column blog and portfolio Jekyll theme
-description: Gray - Single column blog and portfolio Jekyll theme
-logo: 
-image: 
-twitter: # twitter 
+  name: Quentin Kaiser
+  email: quentin@ecos.wtf
+  url: https://twitter.com/qkaiser
+  avatar: https://pbs.twimg.com/profile_images/620237021110386688/3kF35oZ5_400x400.png
+title: ecos.wtf - eCOS Offensive Security Research
+description: ecos.wtf - eCOS Offensive Security Research
+logo: /assets/ecos_wtf_logo_head.png 
+image: /assets/ecos_wtf_logo_head.png 
 twitter:
-  username: # twitter
-  creator: # twitter
+  username: ecoswtf
+  creator: qkaiser
   card: summary
 social:
-  name: Ronalds Vilcins
+  name: ecoswtf
   links:
-    - https://twitter.com/example
-    - https://www.dribbble.com/example
-    - https://github.com/example
-    - https://codepen.io/example
+    - https://twitter.com/ecoswtf
+    - https://github.com/ecos-wtf
   
 repository: ronv/website
 
@@ -50,6 +46,15 @@ plugins:
   - jekyll-sitemap
   - disqus-for-jekyll
 
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    default_lang: html
+    css_class   : 'syntax'
+
+
 collections:
   pages:
     output: true
@@ -57,12 +62,6 @@ collections:
   posts:
     output: true
     permalink: /:year/:month/:day/:slug
-  projects:
-    output: true
-    permalink: /projects/:slug
-  art:
-    output: true
-    permalink: /art/:slug
   
 defaults:
   -

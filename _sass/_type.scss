@@ -9,7 +9,7 @@ a,a:visited {
   color: inherit;
 
   &:hover {
-    color: dodgerblue;
+    color: #65ebba;//dodgerblue;
   }
 }
 
@@ -41,7 +41,10 @@ dl {
 }
 
 code, .highlight {
-    background: #edf2f7;
+    width:100%;
+    margin: 0;
+    /*background: #edf2f7;*/
+    background: #f8f8f8;
     overflow: auto;
 }
 code {
