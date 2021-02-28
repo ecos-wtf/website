@@ -3,7 +3,7 @@ layout: post
 title: Broadcom eCOS | Writing a device profile for bcm2-utils
 description: A detailed guide to bcm2-utils.
 author: qkaiser
-date: 2021-03-02 09:00:00
+date: 2021-03-09 09:00:00
 image: /assets/siligence_spi_buspirate.jpg
 tags: [ecos, bootloader]
 summary: |

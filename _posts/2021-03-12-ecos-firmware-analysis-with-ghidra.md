@@ -5,7 +5,7 @@ description: Tools, tips, and tricks to help you reverse engineer an eCOS firmwa
 summary: In this post I’ll share tools, tips, and tricks to help you reverse engineer an eCOS firmware image dumped from a Broadcom eCOS BFC cable modem. I consider that you have an extracted firmware image with you and the latest version of Ghidra installed.
 author: qkaiser
 image: /assets/fidb_build_run_header.png
-date: 2021-03-05 09:00:00
+date: 2021-03-12 09:00:00
 tags: [ecos, reversing, ghidra, broadcom]
 ---
 

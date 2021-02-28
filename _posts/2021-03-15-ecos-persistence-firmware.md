@@ -5,7 +5,7 @@ description: How to gain persistence with firmware implants on Broadcom eCOS.
 summary: How to gain persistence with firmware implants on Broadcom eCOS.
 author: qkaiser
 image: /assets/backdoor_by_a_midnight_poem_head.jpg
-date: 2021-03-08 09:00:00
+date: 2021-03-15 09:00:00
 tags: [ecos, broadcom, implant, firmware, backdoor]
 ---
 

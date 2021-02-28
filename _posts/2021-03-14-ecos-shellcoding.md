@@ -5,7 +5,7 @@ description: In this article I’ll explain how to craft shellcode that you can 
 author: qkaiser
 summary: In this article I’ll explain how to craft shellcode that you can deliver as a second stage to a victim eCOS device. I’m specifically covering the Broadcom variant of eCOS here.
 image: /assets/bcm_shellcode_r2.jpg
-date: 2021-03-07 09:00:00
+date: 2021-03-14 09:00:00
 tags: [ecos, shellcode, exploit, broadcom]
 ---
 

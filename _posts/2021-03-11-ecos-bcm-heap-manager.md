@@ -5,7 +5,7 @@ author: qkaiser
 description: Let's reverse Broadcom's custom memory allocator for eCOS.
 summary: Let's reverse Broadcom's custom memory allocator for eCOS.
 image: /assets/wolfgang_tilmans_by_dbking.jpg
-date: 2021-03-04 09:00:00
+date: 2021-03-11 09:00:00
 tags: [ecos, memory, heap, reversing]
 ---
 
