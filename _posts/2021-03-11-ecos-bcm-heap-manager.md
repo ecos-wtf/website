@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Broadcom eCOS | Reversing the Heap Allocator
+title: Broadcom eCos | Reversing the Heap Allocator
 author: qkaiser
-description: Let's reverse Broadcom's custom memory allocator for eCOS.
-summary: Let's reverse Broadcom's custom memory allocator for eCOS.
+description: Let's reverse Broadcom's custom memory allocator for eCos.
+summary: Let's reverse Broadcom's custom memory allocator for eCos.
 image: /assets/wolfgang_tilmans_by_dbking.jpg
 date: 2021-03-11 09:00:00
 tags: [ecos, memory, heap, reversing]
@@ -17,14 +17,14 @@ to have a detailed understanding of how the memory is dynamically allocated by a
 All modern systems rely on heap allocators. These allocators use different allocation strategies that differs
 based on the developers objectives. Examples include jemalloc in BSD, kalloc in iOS kernel, and glibc's ptmalloc.
 
-eCOS provides a default heap allocator that implements dlmalloc (see [https://doc.ecoscentric.com/ref/memalloc-standard-api.html](https://doc.ecoscentric.com/ref/memalloc-standard-api.html)),
+eCos provides a default heap allocator that implements dlmalloc (see [https://doc.ecoscentric.com/ref/memalloc-standard-api.html](https://doc.ecoscentric.com/ref/memalloc-standard-api.html)),
 and expose the C standard functions to use it (*malloc*, *calloc*, *realloc*, *free*), on top of C++ *new* and *delete* operators.
 
 Broadcom, for its own reasons, chose not to rely on the default heap allocator and implemented its own allocator named **BcmHeapManager**.
 
-### A Quick Look Into the eCOS Source
+### A Quick Look Into the eCos Source
 
-If we check the eCOS source code provided by the different manufacturers using the Broadcom eCOS variant (see [research]({{site.url}}/research) for samples), we'll see that this
+If we check the eCos source code provided by the different manufacturers using the Broadcom eCos variant (see [research]({{site.url}}/research) for samples), we'll see that this
 heap allocator is referenced in a few locations:
 
 - packages/services/memalloc/common/v2_0/src/malloc.cxx
@@ -674,7 +674,7 @@ void free(void *ptr)
 
 # Conclusion
 
-Over the course of this article we identified that the Broadcom variant of eCOS uses its own dynamic memory allocator named BcmHeapManager. We then relied on a mix of static and dynamic analysis to understand the backing structures and strategies implemented by this custom allocator (allocation, freeing, coalescing).
+Over the course of this article we identified that the Broadcom variant of eCos uses its own dynamic memory allocator named BcmHeapManager. We then relied on a mix of static and dynamic analysis to understand the backing structures and strategies implemented by this custom allocator (allocation, freeing, coalescing).
 
 With this newly acquired knowledge, we can start investigating how we can gain exploitation primitives by abusing dynamic memory allocation issues (use-after-free, double-free, heap overflow). This will be the subject of its own dedicated article.
 

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Broadcom eCOS | Gaining Persistence with Firmware Implants
-description: How to gain persistence with firmware implants on Broadcom eCOS.
-summary: How to gain persistence with firmware implants on Broadcom eCOS.
+title: Broadcom eCos | Gaining Persistence with Firmware Implants
+description: How to gain persistence with firmware implants on Broadcom eCos.
+summary: How to gain persistence with firmware implants on Broadcom eCos.
 author: qkaiser
 image: /assets/backdoor_by_a_midnight_poem_head.jpg
 date: 2021-03-15 09:00:00
@@ -11,7 +11,7 @@ tags: [ecos, broadcom, implant, firmware, backdoor]
 
 !["Backdoors" by amidnightpoem is licensed under CC BY-NC-SA 2.0]({{site.url}}/assets/backdoor_by_a_midnight_poem_head.jpg)
 
-When I sent out my first vulnerability report for a memory corruption issue affecting a Broadcom based eCOS device, the conclusion stated: 
+When I sent out my first vulnerability report for a memory corruption issue affecting a Broadcom based eCos device, the conclusion stated: 
 
 > By chaining these vulnerabilities an attacker can gain unauthorized access to customers LAN (over the Internet or by being in reception range of the access point), fully compromise the router, and leave a persistent backdoor allowing direct remote access to the network.
 
@@ -22,7 +22,7 @@ At that point I was confident that backdooring would be possible but I did not h
 The first steps to investigate whether we can run a backdoored firmware is to
 unpack, modify, repack, and try to run the re-packed firmware.
 
-We have an extracted Broadcom eCOS firmware file from the manufacturer ASKEY, provided to Orange Belgium ISP. The first step is to get rid of all the null bytes padding at the end of the file, otherwise ProgramStore repacking will fail.
+We have an extracted Broadcom eCos firmware file from the manufacturer ASKEY, provided to Orange Belgium ISP. The first step is to get rid of all the null bytes padding at the end of the file, otherwise ProgramStore repacking will fail.
 
 From the output below, we see that content from *0x01965f50* to *0x06000000* is full of null bytes:
 
@@ -423,7 +423,7 @@ bootloader -f 11.24.4.3 bootloader3360_2_1_2_c0.bin  -- Accepts a bootloader
 
 ## Conclusion
 
-Over the course of this article, we learned how to unpack, implant, and repack a Broadcom eCOS firmware file. We then explored ways of running our malicious firmware file, loading over TFTP and running on RAM for debugging purposes, and writing to NAND flash for persistence.
+Over the course of this article, we learned how to unpack, implant, and repack a Broadcom eCos firmware file. We then explored ways of running our malicious firmware file, loading over TFTP and running on RAM for debugging purposes, and writing to NAND flash for persistence.
 
 We therefore proved our initial hypothesis that said "and leave a persistent backdoor allowing direct remote access to the network". 
 

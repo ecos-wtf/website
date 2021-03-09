@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Broadcom eCOS | Reversing Interrupt and Exception Handling
+title: Broadcom eCos | Reversing Interrupt and Exception Handling
 author: qkaiser
-description: Let's go through the different steps I followed when trying to understand interrupt and exception handling on eCOS.
-summary: Let's go through the different steps I followed when trying to understand interrupt and exception handling on eCOS.
+description: Let's go through the different steps I followed when trying to understand interrupt and exception handling on eCos.
+summary: Let's go through the different steps I followed when trying to understand interrupt and exception handling on eCos.
 date: 2021-03-10 09:00:00
 image: /assets/bcm_ecos_isr_vsr.png
 tags: [ecos, memory, reversing]
@@ -11,11 +11,11 @@ tags: [ecos, memory, reversing]
 
 ![head]({{site.url}}/assets/bcm_ecos_isr_vsr.png)
 
-In this article I'll go through the different steps I followed when trying to understand the interrupt and exception handling on eCOS. I initially wanted to cover this material in the [Reversing eCOS Memory Layout](#) article but I started to divert too much from actual memory mappings.
+In this article I'll go through the different steps I followed when trying to understand the interrupt and exception handling on eCos. I initially wanted to cover this material in the [Reversing eCos Memory Layout](#) article but I started to divert too much from actual memory mappings.
 
-While it may not be quite clear now, documenting this will be helpful in the future. It will be a time saver when reversing firmware files given that you'll have a clear memory map, and will provide the necessary background when thinking about persistent backdoor mechanisms, custom code injection, or even building your own eCOS debugger.
+While it may not be quite clear now, documenting this will be helpful in the future. It will be a time saver when reversing firmware files given that you'll have a clear memory map, and will provide the necessary background when thinking about persistent backdoor mechanisms, custom code injection, or even building your own eCos debugger.
 
-By reading the eCOS source code for MIPS and doing some [research into dedicated vectors](#), I identified the following locations:
+By reading the eCos source code for MIPS and doing some [research into dedicated vectors](#), I identified the following locations:
 
 | Vector/Table                  | Address       |
 |-------------------------------|---------------|
@@ -31,7 +31,7 @@ Let's go through each of these locations one by one.
 
 The CPU delivers all exceptions, whether synchronous faults or asynchronous interrupts, to a set of hardware defined vectors. Depending on the architecture, these may be implemented in a number of different ways.
 
-With such a wide variety of hardware approaches, it is not possible to provide a generic mechanism for the substitution of exception vectors directly. Therefore, eCOS translates all of these mechanisms in to a common approach that can be used by portable code on all platforms.
+With such a wide variety of hardware approaches, it is not possible to provide a generic mechanism for the substitution of exception vectors directly. Therefore, eCos translates all of these mechanisms in to a common approach that can be used by portable code on all platforms.
 
 > On MIPS, most exceptions and all interrupts are vectored to a single address at either 0x80000000 or 0xBFC00180. Software is responsible for reading the exception code from the CPU cause register to discover its true source. One of the exception codes in the cause register indicates an external interrupt. Additional bits in the cause register provide a first-level decode for the interrupt source, one of which represents an architecture defined timer. 
 
@@ -63,7 +63,7 @@ lw k1, (k1)             ; $k1 = *$k1
 jr k1                   ; jump and register to $k1
 {% endhighlight %}
 
-It's a perfect match for this piece of assembly from eCOS 2.0 source:
+It's a perfect match for this piece of assembly from eCos 2.0 source:
 
 {% highlight asm %}
 FUNC_START(other_vector)
@@ -177,14 +177,14 @@ Please note that item 1, 2, 3, and 15 are undocumented.
 
 TODO: insert reversed ghidra code of these functions.
 
-An interesting fact is that, due to the way eCOS firmwares are compiled and assembled, the location of **__default_interrupt_vsr** and **__default_exception_vsr** is the same for all firmwares based on the Broadcom variant of eCOS.
+An interesting fact is that, due to the way eCos firmwares are compiled and assembled, the location of **__default_interrupt_vsr** and **__default_exception_vsr** is the same for all firmwares based on the Broadcom variant of eCos.
 
 The following piece of code takes advantage of that fact and gather the VSR information from a live system over a serial connection:
 
 {% highlight python %}
 #!/usr/bin/env python3
 '''
-Dump the virtual service routine table information from a live eCOS BFC device.
+Dump the virtual service routine table information from a live eCos BFC device.
 You must have a serial connection on /dev/ttyUSB0 to either a CM> or RG> shell.
 
 Author: Quentin Kaiser <quentin@ecos.wtf>
@@ -588,7 +588,7 @@ lw k1, (k1)
 jr k1
 {% endhighlight %}
 
-It's a perfect match for this piece of assembly from eCOS 2.0 source:
+It's a perfect match for this piece of assembly from eCos 2.0 source:
 
 {% highlight asm %}
 FUNC_START(utlb_vector)
@@ -704,7 +704,7 @@ undefined nop_service()
 
 When all entries are initialized, the code set specific entries.
 
-To understand these specific entries, we can look at the diagram below (inspired by ["Embedded Software Development with eCOS"](https://ecos.sourceware.org/docs.html) by Anthony J. Massa).
+To understand these specific entries, we can look at the diagram below (inspired by ["Embedded Software Development with eCos"](https://ecos.sourceware.org/docs.html) by Anthony J. Massa).
 
 ![virtual_vector_table_init_sequence]({{site.url}}/assets/virtual_vector_table_init_sequence.png)
 
@@ -714,7 +714,7 @@ Supposedly, this is how the VVT version is built:
 
 Here, the virtual vector table version is set to 0x00080015.
 
-The definition number of the last vector, Flash ROM Configuration is 21d (0x15). The total number of virtual vectors in the upper 16 bits should be 64d (0x40), but is actually 8d (0x8). It's highly probable that Broadcom changed the initial eCOS behavior. We can still rely on the lower 16 bits though.
+The definition number of the last vector, Flash ROM Configuration is 21d (0x15). The total number of virtual vectors in the upper 16 bits should be 64d (0x40), but is actually 8d (0x8). It's highly probable that Broadcom changed the initial eCos behavior. We can still rely on the lower 16 bits though.
 
 To interact with the VVT, I wrote a [piece of Python code](#TODO) that lists the entries from a live system by fetching the information over serial.
 
@@ -788,6 +788,6 @@ python3 dump_vector_table.py
 
 # Conclusion
 
-If you made it through here, congratulations ! Our acquired understanding of the inner workings of eCOS interrupt/exception handling and dedicated vector tables will be helpful in the future when we try to inject GDB stubs into running production firmware. This will also prove useful when we will be designing backdoor persistence by hijacking vector table entries.
+If you made it through here, congratulations ! Our acquired understanding of the inner workings of eCos interrupt/exception handling and dedicated vector tables will be helpful in the future when we try to inject GDB stubs into running production firmware. This will also prove useful when we will be designing backdoor persistence by hijacking vector table entries.
 
 As always, if you have any question feel free to contact me via [Twitter](https://twitter.com) or [email](mailto:quentin@ecos.wtf).

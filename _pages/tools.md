@@ -11,7 +11,7 @@ Non exhaustive list of tools developed in the process of building this blog.
 
 ### RECOS
 
-Reverse engineering resources for the eCOS platform. Mostly focused on Broadcom eCOS platform at the moment.
+Reverse engineering resources for the eCos platform. Mostly focused on Broadcom eCos platform at the moment.
 
 Including:
 
@@ -19,20 +19,20 @@ Including:
 - Virtual Vector Table Dumper
 - Virtual Service Routine Table Dumper
 - Heap Memory Dumper
-- Broadcom eCOS Ghidra Function ID
-- Broadcom eCOS bootloader Ghidra Function ID
-- Ghidra Scripts to automate eCOS reverse engineering
+- Broadcom eCos Ghidra Function ID
+- Broadcom eCos bootloader Ghidra Function ID
+- Ghidra Scripts to automate eCos reverse engineering
 
 Link: [https://github.com/ecos-wtf/recos](https://github.com/ecos-wtf/recos)
 
 ### ECOSHELL
 
-Shellcode generation for eCOS platforms. Allows you to auto-generate different kinds of shellcode for a given platform.
+Shellcode generation for eCos platforms. Allows you to auto-generate different kinds of shellcode for a given platform.
 
 Link: [https://github.com/ecos-wtf/ecoshell](https://github.com/ecos-wtf/ecoshell)
 
 ### ECOSPLOITS
 
-Repository of eCOS platforms exploits.
+Repository of eCos platforms exploits.
 
 Link: [https://github.com/ecos-wtf/ecosploits](https://github.com/ecos-wtf/ecosploits)

@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Broadcom eCOS | Writing a device profile for bcm2-utils
+title: Broadcom eCos | Writing a device profile for bcm2-utils
 description: A detailed guide to bcm2-utils.
 author: qkaiser
 date: 2021-03-09 09:00:00
 image: /assets/siligence_spi_buspirate.jpg
 tags: [ecos, bootloader]
 summary: |
-    In this blog post we'll dive into jclehner’s bcm2-utils tools and perform the following steps. : dump an unknown bootloader with bcm2dump, reverse engineer specific sections of the booloader, write a device profile for bcm2dump, dump the NAND flash and extract the eCOS firmware, and dump the SPI flash and analyze non-vol settings. From there, we will patch non-vol settings to enable console access, flash it and then adapt the console section of our initial bcm2dump profile.
+    In this blog post we'll dive into jclehner’s bcm2-utils tools and perform the following steps. : dump an unknown bootloader with bcm2dump, reverse engineer specific sections of the booloader, write a device profile for bcm2dump, dump the NAND flash and extract the eCos firmware, and dump the SPI flash and analyze non-vol settings. From there, we will patch non-vol settings to enable console access, flash it and then adapt the console section of our initial bcm2dump profile.
 ---
 
 In this blog post we'll dive into jclehner's [bcm2-utils tools](https://github.com/jclehner/bcm2-utils) and perform the following steps:
@@ -15,7 +15,7 @@ In this blog post we'll dive into jclehner's [bcm2-utils tools](https://github.c
 - dump an unknown bootloader with bcm2dump
 - reverse engineer specific sections of the booloader
 - write a device profile for bcm2dump
-- dump the NAND flash and extract the eCOS firmware
+- dump the NAND flash and extract the eCos firmware
 - dump the SPI flash and analyze non-vol settings
 
 From there, we will patch non-vol settings to enable console access, flash it and then adapt the console section of our initial bcm2dump profile.
@@ -374,7 +374,7 @@ I wrote the script below using radare2/r2pipe but feel free to re-implement it i
 {% highlight python %}
 #!/usr/bin/env python3
 '''
-eCOS bootloader analysis script.
+eCos bootloader analysis script.
 
 Analyze a binary looking for function name logging strings and cross-reference
 them to their actual function location.
@@ -1099,7 +1099,7 @@ CM/NonVol> Received RG Event 0x80000001 State 0x5
 RG processor has crashed!
 {% endhighlight %}
 
-After that, the device fully rebooted. This is strange behavior because eCOS devices tends to print out a stack trace with a list of running threads, register values, and memory dump when a crash happen.
+After that, the device fully rebooted. This is strange behavior because eCos devices tends to print out a stack trace with a list of running threads, register values, and memory dump when a crash happen.
 
 We are logged into the 'Cable Modem' shell (CM) but could it be that the device also expose a 'Router Gateway' (RG) shell ? I switched my connections from UART0 to UART2 and there it was !
 
@@ -1124,11 +1124,11 @@ RG> help
  [tr69]
 {% endhighlight %}
 
-Different, but similar. The fact that a single eCOS kernel run specific code within a specific CPU core is super interesting, but I won't cover this right now.
+Different, but similar. The fact that a single eCos kernel run specific code within a specific CPU core is super interesting, but I won't cover this right now.
 
 ## Conclusion
 
-Over the course of this article, I explained how to approach an unknown device running Broadcom eCOS, dump its bootloader, instrument it to dump the full NAND and SPI flash, patch non-volatile settings to obtain console access, and discovered a second console access.
+Over the course of this article, I explained how to approach an unknown device running Broadcom eCos, dump its bootloader, instrument it to dump the full NAND and SPI flash, patch non-volatile settings to obtain console access, and discovered a second console access.
 
 If you have any questions, feel free to get in touch via [email](mailto:quentin@ecos.wtf) or [Twitter](https://twitter.com/qkaiser).
 

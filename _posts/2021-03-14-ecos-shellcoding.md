@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Broadcom eCOS | Building Custom Shellcode
-description: In this article I’ll explain how to craft shellcode that you can deliver as a second stage to a victim eCOS device.
+title: Broadcom eCos | Building Custom Shellcode
+description: In this article I’ll explain how to craft shellcode that you can deliver as a second stage to a victim eCos device.
 author: qkaiser
-summary: In this article I’ll explain how to craft shellcode that you can deliver as a second stage to a victim eCOS device. I’m specifically covering the Broadcom variant of eCOS here.
+summary: In this article I’ll explain how to craft shellcode that you can deliver as a second stage to a victim eCos device. I’m specifically covering the Broadcom variant of eCos here.
 image: /assets/bcm_shellcode_r2.jpg
 date: 2021-03-14 09:00:00
 tags: [ecos, shellcode, exploit, broadcom]
@@ -12,7 +12,7 @@ tags: [ecos, shellcode, exploit, broadcom]
 ![head]({{site.url}}/assets/bcm_shellcode_r2.jpg)
 
 In this article I'll explain how to craft shellcode that you can deliver as a second stage
-to a victim eCOS device. I'm specifically covering the Broadcom variant of eCOS here.
+to a victim eCos device. I'm specifically covering the Broadcom variant of eCos here.
 
 I'll cover two techniques for building these:
 
@@ -161,7 +161,7 @@ the proper command offset that you need to use for your target.
 
 ### Compiling Shellcode
 
-To compile C code for our target you'll need to obtain the right toolchain. You can either download it from [the Internet](http://ftp.twaren.net/Unix/sourceware.org/ecos/gnutools/i386linux/ecoscentric-gnutools-mipsisa32-elf-1.4-2.i386linux.tar.bz2) if you're brave enough. Or build it yourself such as described in [eCOS Firmware Analysis with Ghidra](#TODO) (remember, we needed the toolchain to build eCOS shared libraries).
+To compile C code for our target you'll need to obtain the right toolchain. You can either download it from [the Internet](http://ftp.twaren.net/Unix/sourceware.org/ecos/gnutools/i386linux/ecoscentric-gnutools-mipsisa32-elf-1.4-2.i386linux.tar.bz2) if you're brave enough. Or build it yourself such as described in [eCos Firmware Analysis with Ghidra](#TODO) (remember, we needed the toolchain to build eCos shared libraries).
 
 Once your toolchain is set, you can compile it to an object file with gcc and then exporting a raw binary file from it:
 
@@ -293,12 +293,12 @@ So we should have something along these lines
 {% endhighlight %}
 
 I wrote the script below to fix this issue. For now only the fixed address can be provided but I plan
-on adding support to replace arbitrary relative jumps in any shellcode for Broadcom eCOS.
+on adding support to replace arbitrary relative jumps in any shellcode for Broadcom eCos.
 
 {% highlight python %}
 #!/usr/bin/env python3
 '''
-This code fix relative jumps in shellcode generated for Broadcom eCOS.
+This code fix relative jumps in shellcode generated for Broadcom eCos.
 
 Author: Quentin Kaiser <quentin@ecos.wtf>
 '''

@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Broadcom eCOS | Reversing the OS Memory Layout
+title: Broadcom eCos | Reversing the OS Memory Layout
 author: qkaiser
-description: Let's go over my methodology to reverse the memory layout used by eCOS, and more specifically by the Broadcom variant of eCOS.
-summary: Let's go over my methodology to reverse the memory layout used by eCOS, and more specifically by the Broadcom variant of eCOS.
+description: Let's go over my methodology to reverse the memory layout used by eCos, and more specifically by the Broadcom variant of eCos.
+summary: Let's go over my methodology to reverse the memory layout used by eCos, and more specifically by the Broadcom variant of eCos.
 image: /assets/blueprint_by_will_scullin.jpg
 date: 2021-03-10 09:01:00
 tags: [ecos, memory, reversing]
@@ -11,7 +11,7 @@ tags: [ecos, memory, reversing]
 
 !["Blueprint" by Will Scullin is licensed under CC BY 2.0]({{site.url}}/assets/blueprint_by_will_scullin.jpg)
 
-In this article I'll explain my methodology to reverse the memory layout used by eCOS, and more specifically by the Broadcom variant of eCOS.
+In this article I'll explain my methodology to reverse the memory layout used by eCos, and more specifically by the Broadcom variant of eCos.
 
 Our objective is to identify:
 
@@ -28,7 +28,7 @@ We'll go through each specific location one by one in the next sections.
 
 ## Identifying Vectors Location
 
-By reading the eCOS source code for MIPS and doing some [research into dedicated vectors](#), I identified the following locations:
+By reading the eCos source code for MIPS and doing some [research into dedicated vectors](#), I identified the following locations:
 
 | Vector/Table                  | Address       |
 |-------------------------------|---------------|
@@ -42,7 +42,7 @@ I advise you to go through the [material on exception and interrupt vectors](#TO
 
 # Identifying the BSS section
 
-During the boot sequence, eCOS clears the .bss section. This action is executed by the **hal_zero_bss** function. That function is defined in *./packages/hal/mips/arch/v2_0/src/vectors.S*, in pure MIPS assembly.
+During the boot sequence, eCos clears the .bss section. This action is executed by the **hal_zero_bss** function. That function is defined in *./packages/hal/mips/arch/v2_0/src/vectors.S*, in pure MIPS assembly.
 
 The function is reproduced below:
 
@@ -132,7 +132,7 @@ hal_zero_bss
 Here, __bss_start is equal to *0x819760b8* and __bss_end is equal to *0x81bc7660*.
 
 
-We discovered that **hal_zero_bss** always starts at the same offset (*0x80004854*), regardless of the firmware vendor. This is due to the way eCOS compilation works and the fact that **hal_zero_bss** is defined before eCOS packages or external libraries.
+We discovered that **hal_zero_bss** always starts at the same offset (*0x80004854*), regardless of the firmware vendor. This is due to the way eCos compilation works and the fact that **hal_zero_bss** is defined before eCos packages or external libraries.
 
 Given an arbitrary firmware file, we should be able to auto-identify the start and end locations of the .bss section by seeking to that offset and matching on the instructions setting registers **$a0** and **$a1**.
 
@@ -193,7 +193,7 @@ These firmware were downloaded and extracted from [https://github.com/jclehner/b
 
 # Identifying .data section
 
-From cursory analysis of multiple eCOS based Broadcom firmwares, we identified that the data section always starts with the string "bcm0". Given that the .data section is at the end of the firmware file, it ends with a large amount of null bytes.
+From cursory analysis of multiple eCos based Broadcom firmwares, we identified that the data section always starts with the string "bcm0". Given that the .data section is at the end of the firmware file, it ends with a large amount of null bytes.
 
 Here is the start of the .data section of an ASKEY firmware:
 
@@ -356,7 +356,7 @@ It may not be obvious, but the heap start address (*0x81b52570*) is precisely th
 
 What's left is to identify where the heap ends. The initial heap size is 104528528 size, it's close enough to 100MB (104857600 bytes) so let's just consider the heap is 100MB.
 
-Understanding how heap allocation works on eCOS will be the subject of a dedicated article.
+Understanding how heap allocation works on eCos will be the subject of a dedicated article.
 
 # Putting Everything Together
 
@@ -390,7 +390,7 @@ From experience, this platform does not enforce any kind of permission flags on 
 
 # Conclusion
 
-In this article, we demonstrated how to reverse engineer the memory layout of the Broadcom variant of eCOS.
+In this article, we demonstrated how to reverse engineer the memory layout of the Broadcom variant of eCos.
 
 Understanding the exact memory layout of a target is useful for exploitation and custom code injection. Now that we can identify memory regions, we know where we can write shellcode without interfering with the running system.
 

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Broadcom eCOS | Firmware Analysis with Ghidra
-description: Tools, tips, and tricks to help you reverse engineer an eCOS firmware  image dumped from a Broadcom eCOS BFC cable modem.
-summary: In this post I’ll share tools, tips, and tricks to help you reverse engineer an eCOS firmware image dumped from a Broadcom eCOS BFC cable modem. I consider that you have an extracted firmware image with you and the latest version of Ghidra installed.
+title: Broadcom eCos | Firmware Analysis with Ghidra
+description: Tools, tips, and tricks to help you reverse engineer an eCos firmware  image dumped from a Broadcom eCos BFC cable modem.
+summary: In this post I’ll share tools, tips, and tricks to help you reverse engineer an eCos firmware image dumped from a Broadcom eCos BFC cable modem. I consider that you have an extracted firmware image with you and the latest version of Ghidra installed.
 author: qkaiser
 image: /assets/fidb_build_run_header.png
 date: 2021-03-12 09:00:00
@@ -11,7 +11,7 @@ tags: [ecos, reversing, ghidra, broadcom]
 
 ![head]({{site.url}}/assets/fidb_build_run_header.png)
 
-In this post I'll share tools, tips, and tricks to help you reverse engineer an eCOS firmware image dumped from a Broadcom eCOS BFC cable modem. I consider that you have an extracted firmware image with you and the latest version of Ghidra installed.
+In this post I'll share tools, tips, and tricks to help you reverse engineer an eCos firmware image dumped from a Broadcom eCos BFC cable modem. I consider that you have an extracted firmware image with you and the latest version of Ghidra installed.
 
 If you don't know how to dump a firmware image, head over to [Writing a device profile for bcm2-utils](#TODO).
 
@@ -90,7 +90,7 @@ You can then import the resulting file into Ghidra.
 
 ### Loading firmware in Ghidra
 
-All the Broadcom based eCOS cable modems runs MIPS 32bit big endian chipsets, so you can set the target architecture to that without hesitation. You also have to set the right load address, which we read from the ProgramStore file header (here it's *0x80004000*).
+All the Broadcom based eCos cable modems runs MIPS 32bit big endian chipsets, so you can set the target architecture to that without hesitation. You also have to set the right load address, which we read from the ProgramStore file header (here it's *0x80004000*).
 
 ### Applying FunctionID
 
@@ -100,10 +100,10 @@ I won't go into the details but basically it will compute instruction patterns o
 
 If you want to dig deeper into the subject I recommend you go to Hex Ray's blog and specifically read [IDA F.L.I.R.T. Technology: In-Depth](https://www.hex-rays.com/products/ida/tech/flirt/in_depth/).
 
-Ideally, what we want is a database of patterns matching all the eCOS standard library functions. To generate such a database, we will follow these steps:
+Ideally, what we want is a database of patterns matching all the eCos standard library functions. To generate such a database, we will follow these steps:
 
-1. Download the eCOS source code
-2. Cross-compile each eCOS subsystem to a MIPS32 big endian ELF object files
+1. Download the eCos source code
+2. Cross-compile each eCos subsystem to a MIPS32 big endian ELF object files
 3. Load all object files to a dedicated Ghidra project subdirectory
 4. Run FunctionID analysis on all loaded object files
 5. Export the FunctionID database
@@ -111,11 +111,11 @@ Ideally, what we want is a database of patterns matching all the eCOS standard l
 The FunctionID auto-analysis is largely inspired by threatrack's work at [https://blog.threatrack.de/2019/09/20/ghidra-fid-generator/](https://blog.threatrack.de/2019/09/20/ghidra-fid-generator/)
 
 
-#### Downloading eCOS Source Code
+#### Downloading eCos Source Code
 
-While eCOS sources can be downloaded from their original repositories, two cable modem vendors (Technicolor and Netgear) released the specific versions they use in order to honor the GPL.
+While eCos sources can be downloaded from their original repositories, two cable modem vendors (Technicolor and Netgear) released the specific versions they use in order to honor the GPL.
 
-There is exactly no differences whatsoever between the code released by these vendors. It's eCOS version 2.0 with three different profiles: BCM33 chipsets, BCM33 chipsets with IPv6 support, BCM33 chipsets with SMP support.
+There is exactly no differences whatsoever between the code released by these vendors. It's eCos version 2.0 with three different profiles: BCM33 chipsets, BCM33 chipsets with IPv6 support, BCM33 chipsets with SMP support.
 
 You can take a look yourself by checking out these sources:
 
@@ -123,14 +123,14 @@ You can take a look yourself by checking out these sources:
 - [Technicolor TC72 (BFC 5.5.10 mp1)](https://github.com/tch-opensrc/TC72XX_BFC5.5.10mp1_OpenSrc)
 - [Netgear CG3700 (BFC 5.5.7 mp2)](https://www.downloads.netgear.com/files/GPL/CG3700B_v5.5.7mp2_LxG1.0.7mp2_src.zip)
 
-So we can assume that the Broadband Foundation Classes provided by Broadcom under the "BFC" name are all based on eCOS version 2.0. The standard eCOS packages and libraries will therefore be the same between every firmware that is built for Broadcom chipsets.
+So we can assume that the Broadband Foundation Classes provided by Broadcom under the "BFC" name are all based on eCos version 2.0. The standard eCos packages and libraries will therefore be the same between every firmware that is built for Broadcom chipsets.
 
-The eCOS license allows commercial users of eCOS not to release the code they built on top of eCOS so we will miss the actual BFC libraries that are closed source.
+The eCos license allows commercial users of eCos not to release the code they built on top of eCos so we will miss the actual BFC libraries that are closed source.
 
 
 #### Cross-compilation of shared object files
 
-Getting the proper toolchain to build eCOS is a real pain. The [instructions](https://ecos.sourceware.org/build-toolchain.htm) are clear but they are based on quite old software tools. I finally managed to get everything right by doing everything on a Centos box using Vagrant.
+Getting the proper toolchain to build eCos is a real pain. The [instructions](https://ecos.sourceware.org/build-toolchain.htm) are clear but they are based on quite old software tools. I finally managed to get everything right by doing everything on a Centos box using Vagrant.
 
 **Vagrantfile**
 
@@ -218,7 +218,7 @@ echo "[+] Done"
 cd
 export PATH="$PATH:${HOME}/gnutools/bin"
 
-echo "[+] Downloading eCOS source."
+echo "[+] Downloading eCos source."
 wget --quiet "https://www.downloads.netgear.com/files/GPL/CG3700B_v5.5.7mp2_LxG1.0.7mp2_src.zip"
 unzip CG3700B_v5.5.7mp2_LxG1.0.7mp2_src.zip
 unzip CG3700B_v5.5.7mp2_LxG1.0.7mp2_src/CG3700B_v5.5.7mp2_src.zip
@@ -255,7 +255,7 @@ Once everything is done, you're left with a bunch of `.o` files that we can impo
 
 For the next steps, I'll be relying on scripts developed by Threatrack to auto-import and auto-generate FIDB files. These scripts expect the imported files to follow a specific structure (root/library_name/version/variant/file.o).
 
-I developed the Python script below to move and rename files around so that our generated eCOS object files would follow this naming scheme.
+I developed the Python script below to move and rename files around so that our generated eCos object files would follow this naming scheme.
 
 {% highlight python %}
 #!/usr/bin/env python3
@@ -323,7 +323,7 @@ The FIDB can be downloaded [here](#TODO).
 
 ### Setting Up Memory Mappings
 
-The first step is to identify the different memory regions using the script we developed when we [reverse engineered the eCOS memory layout]({{site.url}}/2020/10/13/ecos-memory-layout).
+The first step is to identify the different memory regions using the script we developed when we [reverse engineered the eCos memory layout]({{site.url}}/2020/10/13/ecos-memory-layout).
 
 {% highlight bash %}
 python3 memory_layout.py firmware.bin
@@ -407,8 +407,8 @@ That script is available on its [dedicated repository](https://github.com/ecos-w
 
 Some stats on current projects:
 
-- ASKEY: 54667 functions identified by Ghidra, 3179 auto-renamed with the script, 1972 identified with eCOS FIDB (5151 functions identified, which is close to 10% of the binary that was identified).
-- Netgear: 50138 functions identified by Ghidra, 2603 auto-renamed with the script, 1972 identified with eCOS FIDB (4575 functions identified, which is close to 10% of the binary that was identified).
+- ASKEY: 54667 functions identified by Ghidra, 3179 auto-renamed with the script, 1972 identified with eCos FIDB (5151 functions identified, which is close to 10% of the binary that was identified).
+- Netgear: 50138 functions identified by Ghidra, 2603 auto-renamed with the script, 1972 identified with eCos FIDB (4575 functions identified, which is close to 10% of the binary that was identified).
 
 ### Automated VTable Identification
 
@@ -436,7 +436,7 @@ NonVolSettings did not implement verbose logging calls, we still can derive its 
 
 ### Importing Data Structures from C Headers
 
-Theoretically, you could import data structures from C headers coming from the eCOS source code. However, I don't think this brings a lot of added value at the moment. This would only concern standard library function calls, and would not help you with custom code coming from either Broadcom or the vendor they partnered with. I think it's more efficient to check the eCOS doc whenever you're tracing such a call than go through the painful process of importing these structures. On top of that, Ghidra does not support having multiple names for the same data type (as in, multiple typedefs call), which pretty much leads to losing all context.
+Theoretically, you could import data structures from C headers coming from the eCos source code. However, I don't think this brings a lot of added value at the moment. This would only concern standard library function calls, and would not help you with custom code coming from either Broadcom or the vendor they partnered with. I think it's more efficient to check the eCos doc whenever you're tracing such a call than go through the painful process of importing these structures. On top of that, Ghidra does not support having multiple names for the same data type (as in, multiple typedefs call), which pretty much leads to losing all context.
 
 ### Conclusion
 
