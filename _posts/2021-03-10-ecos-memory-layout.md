@@ -5,7 +5,7 @@ author: qkaiser
 description: Let's go over my methodology to reverse the memory layout used by eCos, and more specifically by the Broadcom variant of eCos.
 summary: Let's go over my methodology to reverse the memory layout used by eCos, and more specifically by the Broadcom variant of eCos.
 image: /assets/blueprint_by_will_scullin.jpg
-date: 2021-03-10 09:01:00
+date: 2021-03-10 06:01:00
 tags: [ecos, memory, reversing]
 ---
 
