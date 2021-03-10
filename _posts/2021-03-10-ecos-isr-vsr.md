@@ -177,7 +177,7 @@ Please note that item 1, 2, 3, and 15 are undocumented.
 
 An interesting fact is that, due to the way eCos firmwares are compiled and assembled, the location of **__default_interrupt_vsr** and **__default_exception_vsr** is the same for all firmwares based on the Broadcom variant of eCos.
 
-The following piece of code takes advantage of that fact and gather the VSR information from a live system over a serial connection:
+The following piece of code takes advantage of that fact and gather the VSR information from a live system over a serial connection. You can find the code in the dedicated [repo](https://github.com/ecos-wtf/recos).
 
 {% highlight python %}
 #!/usr/bin/env python3
@@ -257,7 +257,7 @@ if __name__ == "__main__":
 Running the code against a Netgear CG3700B device:
 
 {% highlight sh %}
-sudo python3 dump_vsr.py
+python3 dump_vsr.py
 0: 0x80000300	__default_interrupt_vsr                 0x800043ec
 1: 0x80000304	__default_exception_vsr                 0x80004bd8
 2: 0x80000308	__default_exception_vsr                 0x80004bd8
@@ -649,13 +649,9 @@ FUNC_END(debug_vector)
 ### Virtual Vector Table (0x80000400)
 
 > "Virtual vectors" is the name of a table located at a static location in the target address space. This table contains 64 vectors that point to service functions or data.
-
 > The fact that the vectors are always placed at the same location in the address space means that both ROM and RAM startup configurations can access these and thus the services pointed to.
-
 > The primary goal is to allow services to be provided by ROM configurations (ROM monitors such as RedBoot in particular) with clients in RAM configurations being able to use these services.
-
 > Without the table of pointers this would be impossible since the ROM and RAM applications would be linked separately - in effect having separate name spaces - preventing direct references from one to the other.
-
 > This decoupling of service from client is needed by RedBoot, allowing among other things debugging of applications which do not contain debugging client code (stubs).
 
 Source: [https://ecos.sourceware.org/ecos/docs-latest/ref/hal-calling-if.html](https://ecos.sourceware.org/ecos/docs-latest/ref/hal-calling-if.html)
