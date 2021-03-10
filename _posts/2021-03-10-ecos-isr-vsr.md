@@ -175,8 +175,6 @@ As we can see, the only valid exception codes that index within the VSR table ar
 
 Please note that item 1, 2, 3, and 15 are undocumented.
 
-TODO: insert reversed ghidra code of these functions.
-
 An interesting fact is that, due to the way eCos firmwares are compiled and assembled, the location of **__default_interrupt_vsr** and **__default_exception_vsr** is the same for all firmwares based on the Broadcom variant of eCos.
 
 The following piece of code takes advantage of that fact and gather the VSR information from a live system over a serial connection:
@@ -716,7 +714,7 @@ Here, the virtual vector table version is set to 0x00080015.
 
 The definition number of the last vector, Flash ROM Configuration is 21d (0x15). The total number of virtual vectors in the upper 16 bits should be 64d (0x40), but is actually 8d (0x8). It's highly probable that Broadcom changed the initial eCos behavior. We can still rely on the lower 16 bits though.
 
-To interact with the VVT, I wrote a [piece of Python code](#TODO) that lists the entries from a live system by fetching the information over serial.
+To interact with the VVT, I wrote a [piece of Python code](https://github.com/ecos-wtf/recos/blob/main/dump_vector_table.py) that lists the entries from a live system by fetching the information over serial.
 
 {% highlight bash %}
 python3 dump_vector_table.py
