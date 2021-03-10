@@ -38,7 +38,7 @@ By reading the eCos source code for MIPS and doing some [research into dedicated
 | Virtual Service Routine Table | 0x80000300    |  
 | Virtual Vector Table          | 0x80000400    |
 
-I advise you to go through the [material on exception and interrupt vectors](#TODO) if you want to know more about the subject. It's not a requirement for the rest of this article though.
+I advise you to go through the [material on exception and interrupt vectors]({{site.url}}2021/03/10/ecos-isr-vsr) if you want to know more about the subject. It's not a requirement for the rest of this article though.
 
 # Identifying the BSS section
 
@@ -368,7 +368,7 @@ The diagram below presents the whole memory used by a running device. If I'm not
 
 > Thanks to everyone on the corelan slack channel for the nice debate about high addresses/low addresses locations, and whether a stack actually "grows" or not :)
 
-I also implemented all the auto identification procedure in a Python 3 script. It's not relying on any decompiler or disassembler library so you will get results instantly.
+I also implemented all the auto identification procedure in a Python 3 script. It's not relying on any decompiler or disassembler library so you will get results instantly. You can get it from the dedicated [repository](https://github.com/ecos-wtf/recos).
 
 {% highlight bash %}
 python3 memory_map.py firmware.decompressed.bin
