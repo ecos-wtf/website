@@ -4,8 +4,8 @@ title: Broadcom eCos | Firmware Analysis with Ghidra
 description: Tools, tips, and tricks to help you reverse engineer an eCos firmware  image dumped from a Broadcom eCos BFC cable modem.
 summary: In this post I’ll share tools, tips, and tricks to help you reverse engineer an eCos firmware image dumped from a Broadcom eCos BFC cable modem. I consider that you have an extracted firmware image with you and the latest version of Ghidra installed.
 author: qkaiser
-image: /assets/fidb_build_run_header.png
-date: 2021-03-12 09:00:00
+image: assets/fidb_build_run_header.png
+date: 2021-03-12 06:00:00
 tags: [ecos, reversing, ghidra, broadcom]
 ---
 
@@ -13,7 +13,7 @@ tags: [ecos, reversing, ghidra, broadcom]
 
 In this post I'll share tools, tips, and tricks to help you reverse engineer an eCos firmware image dumped from a Broadcom eCos BFC cable modem. I consider that you have an extracted firmware image with you and the latest version of Ghidra installed.
 
-If you don't know how to dump a firmware image, head over to [Writing a device profile for bcm2-utils](#TODO).
+If you don't know how to dump a firmware image, head over to [Writing a device profile for bcm2-utils]({{site.url}}/2021/03/09/bcm2-utils-bootloader-dumping).
 
 ### Extracting ProgramStore Images
 
@@ -319,7 +319,7 @@ After all these steps we're left with a FIDB file holding 2180 function signatur
 {:.foo}
 ![fidb_broadcom_ecos]({{site.url}}/assets/fidb_broadcom_ecos.png)
 
-The FIDB can be downloaded [here](#TODO).
+The FIDB can be downloaded [here](https://github.com/ecos-wtf/recos).
 
 ### Setting Up Memory Mappings
 

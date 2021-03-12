@@ -7,8 +7,8 @@ author:
   avatar: https://pbs.twimg.com/profile_images/620237021110386688/3kF35oZ5_400x400.png
 title: ecos.wtf - eCOS Offensive Security Research
 description: ecos.wtf - eCOS Offensive Security Research
-logo: /assets/ecos_wtf_logo_head.png 
-image: /assets/ecos_wtf_logo_head.png 
+logo: assets/ecos_wtf_logo_head.png 
+image: assets/ecos_wtf_logo_head.png 
 twitter:
   username: ecoswtf
   creator: qkaiser
