@@ -4,7 +4,7 @@ title: Welcome to ecos.wtf !
 description: ecos.wtf aims at documenting in a single place everything related to eCos platform security research.
 summary: ecos.wtf aims at documenting in a single place everything related to eCos platform security research.
 date:   2021-03-08 09:00:00
-image: /assets/ecos_wtf_logo_head.png
+image: assets/ecos_wtf_logo_head.png
 tags: [ecos]
 ---
 

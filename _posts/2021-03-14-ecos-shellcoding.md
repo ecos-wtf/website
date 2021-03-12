@@ -4,8 +4,8 @@ title: Broadcom eCos | Building Custom Shellcode
 description: In this article I’ll explain how to craft shellcode that you can deliver as a second stage to a victim eCos device.
 author: qkaiser
 summary: In this article I’ll explain how to craft shellcode that you can deliver as a second stage to a victim eCos device. I’m specifically covering the Broadcom variant of eCos here.
-image: /assets/bcm_shellcode_r2.jpg
-date: 2021-03-14 09:00:00
+image: assets/bcm_shellcode_r2.jpg
+date: 2021-03-14 06:00:00
 tags: [ecos, shellcode, exploit, broadcom]
 ---
 

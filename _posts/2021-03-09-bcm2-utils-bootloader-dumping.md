@@ -4,7 +4,7 @@ title: Broadcom eCos | Writing a device profile for bcm2-utils
 description: A detailed guide to bcm2-utils.
 author: qkaiser
 date: 2021-03-09 09:00:00
-image: /assets/siligence_spi_buspirate.jpg
+image: assets/siligence_spi_buspirate.jpg
 tags: [ecos, bootloader]
 summary: |
     In this blog post we'll dive into jclehner’s bcm2-utils tools and perform the following steps. : dump an unknown bootloader with bcm2dump, reverse engineer specific sections of the booloader, write a device profile for bcm2dump, dump the NAND flash and extract the eCos firmware, and dump the SPI flash and analyze non-vol settings. From there, we will patch non-vol settings to enable console access, flash it and then adapt the console section of our initial bcm2dump profile.
