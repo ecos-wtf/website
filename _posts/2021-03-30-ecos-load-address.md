@@ -95,7 +95,7 @@ The example below shows the memory mapping for STM32 chips:
 
 In addition, for some ARM architectures, the load address can also be speculated through the interrupt vector table. The first two items in the interrupt vector table are respectively the Initial SP value and Reset, where Reset is the reset routine address, which will be executed when the device is powered on/reset, and the possible load address can be estimated based on this address.
 
-In the used cores, an ARM Cortex-M3, the boot process is build around the reset exception. At device boot or reboot the core assumes the vector table at 0x0000.0000. The vector table contains exception routines and the initial value of the stack pointer. On power-on now the microcontroller first loads the initial stack pointer from 0x0000.0000 and then address of the reset vector (0x0000.0004) into the program counter register (R15). The execution continues at this address.
+<!--In the used cores, an ARM Cortex-M3, the boot process is build around the reset exception. At device boot or reboot the core assumes the vector table at 0x0000.0000. The vector table contains exception routines and the initial value of the stack pointer. On power-on now the microcontroller first loads the initial stack pointer from 0x0000.0000 and then address of the reset vector (0x0000.0004) into the program counter register (R15). The execution continues at this address.-->
 
 Source: [https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on-stm32f103c8t6.html](https://blog.3or.de/starting-embedded-reverse-engineering-freertos-libopencm3-on-stm32f103c8t6.html
 )
@@ -106,7 +106,7 @@ Source: [https://developer.arm.com/documentation/dui0552/a/the-cortex-m3-process
 
 When there is no corresponding chip datasheet or sdk manuals, you can try to start from the firmware itself and infer the possible load addresses by analyzing some features in the firmware.
 
-For example, Magpie does this by identifying the ARM entry table in the firmware, and then guessing the possible load base address based on the addresses in the function entry table.
+For example, [Magpie](https://www.anquanke.com/post/id/198276) does this by identifying the ARM entry table in the firmware, and then guessing the possible load base address based on the addresses in the function entry table.
 
 Another method we saw in [this piece](https://limkopi.me/analysing-sj4000s-firmware/) tries to find fixed addresses within the firmware and derive the load address from it.
 
@@ -138,7 +138,7 @@ We then click on Make Code and saw the familiar eCos kernel exception handler wi
 
 Because the firmware file is a bit large (approximately 10MB), it takes a lot of effort to guess the load address based on a single address:
 
-1. A complete analysis is time-consuming (about a few minutes), and multiple addresses need to be analyzed several times;
+1.  complete analysis is time-consuming (about a few minutes), and to guess multiple addresses, the firmware needs to be analyzed several times;
 2. It is also troublesome to manually confirm whether the recognized functions and string cross-references are correct (may include hundreds of functions and string cross-references).
 
 Therefore, it is necessary to find more fixed addresses and more regular addresses to determine the range of the load address.
@@ -218,7 +218,7 @@ Once we set the correct load address in IDA, the VSR initialization code is foun
 .text:8004015C sw $v0, 0x24($v1) 
 ```
 
-The value put into $v1 corresponds to the hal_vsr_table address while the value put into $v0 corresponds to the default exception vector table.
+The value put into $v1 corresponds to the hal_vsr_table address while the value put into $v0 corresponds to the default exception vector table. Based on the value of $v0, we may estimate the load address when considering address alignment.
 
 ```
 # mips cpu After the exception/interrupt is generated, the cpu will jump to a few specific addresses, 
@@ -287,11 +287,11 @@ eCos firmware files do not have import/export tables or debug symbols so it is i
 
 The common function calling conventions for MIPS32 is the O32 ABI: $a0-$a3 registers are used for function parameter transfer, redundant parameters are passed through the stack, and the return value is stored in the $v0-$v1 registers.
 
-eCos firmwares follow the N32 ABI. The biggest difference is that the $a0-$a7 registers are used for function parameter transfer (corresponding in O32 ABI to $a0-$a3, $t0-$t3).
+The tested eCos firmware follows the [N32 ABI](https://en.wikipedia.org/wiki/MIPS_architecture#Calling_conventions). The biggest difference is that the $a0-$a7 registers are used for function parameter transfer (corresponding in O32 ABI to $a0-$a3, $t0-$t3).
 
 ![mips_n32_call_convention_sample]({{site.url}}/assets/mips_n32_call_convention_sample.png)
 
-IDA supports changing the ABI mode in the processor options, but only modifying this parameter does not seem to work directly. To make it work, you need to set the compiler to "GNU C++".
+IDA supports changing the ABI mode in the processor options, but only modifying this parameter does not seem to work. To make it work, you also need to set the compiler and its ABI name.
 
 ![ida_processor_compiler_option]({{site.url}}/assets/ida_processor_compiler_option.png)
 
