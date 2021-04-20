@@ -36,3 +36,9 @@ Link: [https://github.com/ecos-wtf/ecoshell](https://github.com/ecos-wtf/ecoshel
 Repository of eCos platforms exploits.
 
 Link: [https://github.com/ecos-wtf/ecosploits](https://github.com/ecos-wtf/ecosploits)
+
+### PROGRAMSTORE-LOADER
+
+A Broadcom ProgramStore firmware image loader for Ghidra (9.1.2 and 9.2).
+
+Link: [https://github.com/ecos-wtf/programstore-loader](https://github.com/ecos-wtf/programstore-loader)
