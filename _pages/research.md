@@ -29,6 +29,8 @@ You think it's missing something ? Drop me an [email]({{site.url}}/about) and I'
 
 ### Vulnerability Reports
 
+Excellent research by Faraday Security presented at DEFCON 30 on vulnerabilities affected Realtek's eCOS SDK: [CVE-2022-27255](https://github.com/infobyte/cve-2022-27255)
+
 The infamous cable haunt:
 
 - _"Vulnerability Report: Broadcom chip based cable modems"_ by **Lyrebirds** - [https://cablehaunt.com/](https://cablehaunt.com/)
